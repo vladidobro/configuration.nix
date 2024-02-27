@@ -9,4 +9,6 @@
 
   home.username = "vladidobro";
   home.homeDirectory = "/home/vladidobro";
+
+  programs.nixvim.enable = true;
 }
