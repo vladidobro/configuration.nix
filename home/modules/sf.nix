@@ -30,6 +30,10 @@
         User ${flake.inputs.secrets.mail.sf}
         HostName 10.240.0.7
 
+    Host dba
+        User ${flake.inputs.secrets.mail.sf}
+        HostName 10.240.0.6
+
     Host oci
         User opc
         HostName 10.127.96.17
