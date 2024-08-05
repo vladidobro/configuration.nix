@@ -1,6 +1,10 @@
 { flake, config, pkgs, ... }:
 
 {
+  home.sessionVariables = {
+    SF_LIB = "/users/vladislavwohlrath/src/lib/sf";
+  };
+
   programs.zsh.initExtra = ''
     function legacy-init-arm () {
         eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -39,25 +43,25 @@
         HostName 10.127.96.17
         IdentityFile ~/.ssh/id_rastaoci
 
-    Host oraprod
+    Host ora* xora*
         User opc
+        IdentityFile ~/.ssh/id_inpoweroci
+
+    Host xora*
+        RequestTTY force
+        RemoteCommand sudo su - oracle
+
+    Host oraprod xoraprod
         HostName 10.127.0.76
-        IdentityFile ~/.ssh/id_inpoweroci
 
-    Host oradmz
-        User opc
+    Host oradmz xoradmz
         HostName 10.127.3.121
-        IdentityFile ~/.ssh/id_inpoweroci
 
-    Host orauat1
-        User opc
+    Host orauat1 xorauat1
         HostName 10.127.2.191
-        IdentityFile ~/.ssh/id_inpoweroci
 
-    Host orauat2
-        User opc
+    Host orauat2 xorauat2
         HostName 10.127.2.144
-        IdentityFile ~/.ssh/id_inpoweroci
   '';
 
   home.packages = with pkgs; [

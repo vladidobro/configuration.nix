@@ -8,10 +8,20 @@
   system.stateVersion = 4;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
-  services.nix-daemon.enable = true;
+  services.nix-daemon = {
+    enable = true;
+  };
+  launchd.daemons.nix-daemon = {
+    serviceConfig = {
+      EnvironmentVariables = {
+        NETRC = "/etc/nix/netrc";
+      };
+    };
+  };
   nix = {
     package = pkgs.nix;
     settings.experimental-features = "nix-command flakes";
+    settings.extra-sandbox-paths = [ "/etc/nix/netrc" ];
     settings.trusted-users = [ "vladislavwohlrath" ];
     nixPath = [
       { nixpkgs = flake.inputs.nixpkgs; }
